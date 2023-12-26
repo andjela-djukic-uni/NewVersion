@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,17 +34,22 @@ Route::get('/contact.php', function () {
     return view('contact');
 });
 
-Route::get('/login.php', function () {
-    return view('login');
-});
 
 Route::get('/welcome.blade.php', function () {
     return view('welcome');
-});
+})->name('home')
+;
 
-Route::get('/register.php', function () {
-    return view('register');
-});
+
+Route::get('/login', [\App\Http\Controllers\AuthManager::class, 'login'])->name('login');
+
+Route::post('/login', [\App\Http\Controllers\AuthManager::class, 'loginPost'])->name('login.post');
+
+
+Route::get('/registration', [\App\Http\Controllers\AuthManager::class, 'registration'])->name('registration');;
+Route::post('/registration', [\App\Http\Controllers\AuthManager::class, 'registrationPost'])->name('registration.post');
+
+
 
 Route::get('/helpinglocal.php', function () {
     return view('helpinglocal');
@@ -67,8 +73,4 @@ Route::get('/who.php', function () {
 
 Route::get('/testimonials.php', function () {
     return view('testimonials');
-});
-
-Route::get('/singupDODATNO.php', function () {
-    return view('welcome.blade');
 });
