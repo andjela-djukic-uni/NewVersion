@@ -24,7 +24,8 @@ class AuthManager extends Controller
  
         if (Auth::attempt(['email' => $informacije['mejl'], 'password' => $informacije['sifra']])) {
         // if login true then it will go here
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('admin.update'));
+
     }
     return redirect(route('login'))->with("error", "Login failed");
     }

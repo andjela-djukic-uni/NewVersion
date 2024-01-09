@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Models\Projects;
+use App\Models\Slides;
+use App\Models\Testimonials;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,31 +18,34 @@ use App\Http\Controllers\AuthManager;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome',[
+        'slides' => Slides::all(),
+        'testimonials' => Testimonials::all(),
+        'projects' => Projects::all()
+    ]);
+})->name('home');
+
+Route::get('/projects', function () {
+    return view('projects',[
+        'projects' => Projects::all()
+    ]);
 });
 
-Route::get('/projects.php', function () {
-    return view('projects');
-});
-
-Route::get('/gallery.php', function () {
+Route::get('/gallery', function () {
     return view('gallery');
 });
 
-Route::get('/about.php', function () {
+Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/contact.php', function () {
+Route::get('/contact', function () {
     return view('contact');
 });
 
-
-Route::get('/welcome.blade.php', function () {
-    return view('welcome');
-})->name('home')
-;
-
+Route::get('/login', function () {
+    return view('login');
+});
 
 Route::get('/login', [\App\Http\Controllers\AuthManager::class, 'login'])->name('login');
 
@@ -51,26 +57,45 @@ Route::post('/registration', [\App\Http\Controllers\AuthManager::class, 'registr
 
 
 
-Route::get('/helpinglocal.php', function () {
+Route::get('/register', function () {
+    return view('register');
+});
+
+//Route::get('/update', function () {
+//    return view('update');
+//})->name('update');
+
+Route::get('/admin/update', [\App\Http\Controllers\AdminController::class, 'index'])->name('update');
+Route::post('/admin/update', [\App\Http\Controllers\AdminController::class, 'update'])->name('admin.update');
+
+Route::get('/helpinglocal', function () {
     return view('helpinglocal');
 });
 
-Route::get('/supporting.php', function () {
+Route::get('/supporting', function () {
     return view('supporting');
 });
 
-Route::get('/preserving.php', function () {
+Route::get('/preserving', function () {
     return view('preserving');
 });
 
-Route::get('/education.php', function () {
+Route::get('/education', function () {
     return view('education');
 });
 
-Route::get('/who.php', function () {
+Route::get('/who', function () {
     return view('who');
 });
 
-Route::get('/testimonials.php', function () {
+Route::get('/testimonials', function () {
     return view('testimonials');
+});
+
+Route::get('/donate', function () {
+    return view('donate');
+});
+
+Route::get('/singupDODATNO', function () {
+    return view('welcome');
 });
